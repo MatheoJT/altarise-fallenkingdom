@@ -1,0 +1,11 @@
+name: FallenKingdom
+main: net.altarise.fk.FallenKingdom
+version: SNAPSHOT
+author: Baxymoz
+depend: [AltariseCore,AltariseGameCore]
+commands:
+  ping:
+    description: permet d'alerter vos alliés !
+
+
+

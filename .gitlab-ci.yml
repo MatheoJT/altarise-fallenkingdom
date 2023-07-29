@@ -1,0 +1,40 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  CONTAINER_IMAGE: ${CI_DOCKER_REGISTRY}/${CI_PROJECT_NAME}:latest
+  GAMECORE_IMAGE: ${CI_DOCKER_REGISTRY}/${CI_DOCKER_DEFAULT_GAMECORE_IMAGE}:latest
+
+build:
+  stage: build
+  image: gradle:7.1.1-jdk16
+  script:
+    - 'gradle --build-cache build'
+    - 'ls'
+    - 'mv build/libs/*.jar .'
+    - 'ls'
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-build$CI_JOB_ID"
+    paths:
+      - '*.jar'
+  tags:
+    - k8s
+    - dev
+
+deploy:
+  stage: deploy
+  image: quay.io/containers/buildah:latest
+  script:
+    - echo -n $CI_DOCKER_PASSWORD | buildah login --tls-verify=false -u $CI_DOCKER_USERNAME --password-stdin $CI_DOCKER_REGISTRY
+    - buildah pull --tls-verify=false ${GAMECORE_IMAGE}
+    - buildah images
+    - buildah tag ${GAMECORE_IMAGE} gamecore:latest
+    - buildah bud --tag ${CONTAINER_IMAGE} .
+    - buildah push --tls-verify=false ${CONTAINER_IMAGE}
+    - echo Image pushed $IMG
+  only:
+    - main
+  tags:
+    - k8s
+    - dev

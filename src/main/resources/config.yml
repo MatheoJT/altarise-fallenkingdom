@@ -1,0 +1,47 @@
+properties:
+  max-player: 32 #24
+  max-per-team: 4
+  min-player-start: 2 #12
+  start-timer: 45
+  spawn: "world, 5054, 168, 5080, 180, 0"
+  day-time: 120  #time in seconds, time to change the day (aka minutsPerDays)
+  pvp-time: 4 #10  Day when pvp start
+  assault-time: 8 #20  Day when assault start
+  deathmatch-time: 12 #35  Day when deathmatch start
+  #middle
+  middle-chest: "world, 589, 131, 444"
+  drop-locations:
+    - "world, 294, 118, 345"
+
+teams:
+  white:
+    name: "Blanc"
+    color: "f"
+    byte-color: 0
+    spawn: "world, 205, 123, 253, 90, 0"
+    crystal: "world, 209, 122, 256"
+    build-pos1: "world, 235, 152, 282"
+    build-pos2: "world, 183, 100, 230"
+    chest: "world, 202, 121, 253, -90, 0"
+
+
+  purple:
+    name: "Violet"
+    color: "5"
+    byte-color: 10
+    spawn: "world, 537, 119, 202, 180, 0"
+    crystal: "world, 534, 120, 206"
+    build-pos1: "world, 508, 152, 180"
+    build-pos2: "world, 560, 100, 232"
+    chest: "world, 537, 119, 199, 0, 0"
+
+  red:
+    name: "Rouge"
+    color: "c"
+    byte-color: 14
+    spawn: "world, 566, 118, 482, -90, 0"
+    crystal: "world, 562, 118, 479"
+    build-pos1: "world, 536, 152, 505"
+    build-pos2: "world, 588, 100, 453"
+    chest: "world, 569, 117, 482, 90, 0"
+

@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group 'net.altarise'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url "https://gitlab.com/api/v4/groups/13022841/-/packages/maven"
+        name "GitLab"
+        credentials(HttpHeaderCredentials) {
+            name = 'Deploy-Token'
+            value = 'RbcJLFH_KvGNWAUAWtg-'
+        }
+        authentication {
+            header(HttpHeaderAuthentication)
+        }
+    }
+}
+
+
+dependencies {
+    compileOnly 'net.altarise.api:altarise-gameapi:1.0.1'
+    compileOnly 'net.altarise.api:altarise-api:1.0.1'
+    compileOnly 'net.altarise.api:bean-api:1.0.1'
+    compileOnly 'net.altarise:altarise-spigot:1.8.8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
